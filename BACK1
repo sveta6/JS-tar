@@ -1,0 +1,64 @@
+const express = require('express');
+const http = require('http');
+const cors = require('cors');
+
+const app = express();
+
+app.use(cors());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+app.use((req, res, next) => {
+console.log('URL = ', req.url);
+console.log('Original_URL = ', req.originalUrl);
+console.log('METHOD = ', req.method);
+console.log('HOST = ', req.headers.host);
+console.log('IsSecure = ', req.secure);
+console.log('BODY', req.body);
+console.log('QUERY', req.query);
+
+next();
+});
+/*app.post('/reverseCase', (req, res)=>{
+string_2 = '';
+for (let char of req.body.text){
+if (char != char.toLowerCase(char))
+string_2 += char.toLowerCase();
+else
+string_2 += char.toUpperCase();
+};
+res.status(200).json({message: string_2})
+});
+*/
+/*app.post('/reverseArray', (req, res)=>{
+{
+myArray=req.body.array;
+var newArray = [];
+for (var i = myArray.length-1; i >= 0; i--) {
+newArray.push(myArray[i]);
+};
+console.log(newArray);
+};
+res.status(200).json({message: newArray})
+});*/
+app.post('/sum', (req, res)=>{
+
+num_1=req.body.num_1;
+num_2=req.body.num_2;
+
+{
+num_3 = (Number(num_1)+Number(num_2)) ;
+
+}
+res.status(200).json({message: num_3})
+});
+
+
+//sum(6,9);
+//app.all('/test', (req, res) => {
+//res.status(200).json({ message: 'KKKKKK'});
+//})
+
+http.createServer(app).listen(3000, () => {
+console.log('Server is working on port 3000');
+})
